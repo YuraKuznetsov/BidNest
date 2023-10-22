@@ -1,6 +1,6 @@
 package com.bidnest.model.user;
 
-import com.bidnest.model.product.Product;
+import com.bidnest.model.auction.Auction;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,13 +43,13 @@ public class User {
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
     @Setter(AccessLevel.NONE)
-    private Set<Product> products = new HashSet<>();
+    private Set<Auction> products = new HashSet<>();
 
-    public Set<Product> getProducts() {
+    public Set<Auction> getProducts() {
         return Collections.unmodifiableSet(products);
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(Auction product) {
         if (product == null)
             throw new NullPointerException("Can't add null Product");
         if (product.getSeller() != null)
@@ -59,7 +59,7 @@ public class User {
         product.setSeller(this);
     }
 
-    public void removeProduct(Product product) {
+    public void removeProduct(Auction product) {
         products.remove(product);
         product.setSeller(null);
     }

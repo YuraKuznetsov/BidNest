@@ -1,4 +1,4 @@
-package com.bidnest.model.product;
+package com.bidnest.model.auction;
 
 public enum Currency {
 

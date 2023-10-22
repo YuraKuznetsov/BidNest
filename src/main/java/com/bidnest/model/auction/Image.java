@@ -1,4 +1,4 @@
-package com.bidnest.model.product;
+package com.bidnest.model.auction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -24,8 +24,8 @@ public class Image {
     @JsonIgnore
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable=false)
-    private Product product;
+    @JoinColumn(name = "auction_id", nullable=false)
+    private Auction auction;
 
     private String url;
 }

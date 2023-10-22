@@ -1,4 +1,4 @@
-package com.bidnest.model.product;
+package com.bidnest.model.auction;
 
 import com.bidnest.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,20 +9,21 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "product")
+@Table(name = "auction")
 @Getter
 @Setter
 @ToString
-public class Product {
+public class Auction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "auction_id")
     @Setter(AccessLevel.NONE)
     private Long id;
 
@@ -33,7 +34,7 @@ public class Product {
     private User seller;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @Column(nullable = false)
     private String description;
@@ -50,9 +51,12 @@ public class Product {
     private Currency currency;
 
     @Column(nullable = false)
-    private Boolean sold;
+    private Timestamp startAt;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    @Column(nullable = false)
+    private Boolean ended = false;
+
+    @OneToMany(mappedBy = "auction", cascade = CascadeType.REMOVE)
     @Setter(AccessLevel.NONE)
     private Set<Image> images = new HashSet<>();
 
@@ -63,15 +67,15 @@ public class Product {
     public void addImage(Image image) {
         if (image == null)
             throw new NullPointerException("Can't add null Image");
-        if (image.getProduct() != null)
-            throw new IllegalStateException("Image is already assigned to a Product");
+        if (image.getAuction() != null)
+            throw new IllegalStateException("Image is already assigned to a Auction");
 
         images.add(image);
-        image.setProduct(this);
+        image.setAuction(this);
     }
 
     public void removeImage(Image image) {
         images.remove(image);
-        image.setProduct(null);
+        image.setAuction(null);
     }
 }
