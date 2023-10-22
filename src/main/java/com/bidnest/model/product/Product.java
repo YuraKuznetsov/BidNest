@@ -24,7 +24,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     @Setter(AccessLevel.NONE)
-    private Integer id;
+    private Long id;
 
     @JsonIgnore
     @ToString.Exclude

@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     @Setter(AccessLevel.NONE)
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String email;
