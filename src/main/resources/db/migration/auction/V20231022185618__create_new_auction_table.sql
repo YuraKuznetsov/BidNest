@@ -1,3 +1,5 @@
+ALTER TABLE bid DROP CONSTRAINT bid_auction_id_fkey;
+
 DROP TABLE auction;
 
 CREATE TABLE auction
@@ -13,7 +15,6 @@ CREATE TABLE auction
     ended        BOOLEAN       DEFAULT false
 );
 
-
-
-
-
+ALTER TABLE bid
+ADD CONSTRAINT bid_auction_id_fkey FOREIGN KEY (auction_id)
+REFERENCES auction(auction_id);
