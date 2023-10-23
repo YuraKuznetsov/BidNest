@@ -1,5 +1,6 @@
 package com.bidnest.model.auction;
 
+import com.bidnest.model.Bid;
 import com.bidnest.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -60,6 +61,10 @@ public class Auction {
     @Setter(AccessLevel.NONE)
     private Set<Image> images = new HashSet<>();
 
+    @OneToMany(mappedBy = "auction", cascade = CascadeType.REMOVE)
+    @Setter(AccessLevel.NONE)
+    private Set<Bid> bids = new HashSet<>();
+
     public Set<Image> getImages() {
         return Collections.unmodifiableSet(images);
     }
@@ -77,5 +82,24 @@ public class Auction {
     public void removeImage(Image image) {
         images.remove(image);
         image.setAuction(null);
+    }
+
+    public Set<Bid> getBids() {
+        return Collections.unmodifiableSet(bids);
+    }
+
+    public void addBid(Bid bid) {
+        if (bid == null)
+            throw new NullPointerException("Can't add null Bid");
+        if (bid.getAuction() != null)
+            throw new IllegalStateException("Bid is already assigned to a Auction");
+
+        bids.add(bid);
+        bid.setAuction(this);
+    }
+
+    public void removeBid(Bid bid) {
+        bids.remove(bid);
+        bid.setAuction(null);
     }
 }

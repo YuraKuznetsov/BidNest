@@ -1,5 +1,6 @@
 package com.bidnest.model.user;
 
+import com.bidnest.model.Bid;
 import com.bidnest.model.auction.Auction;
 import lombok.*;
 
@@ -43,24 +44,47 @@ public class User {
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
     @Setter(AccessLevel.NONE)
-    private Set<Auction> products = new HashSet<>();
+    private Set<Auction> auctions = new HashSet<>();
 
-    public Set<Auction> getProducts() {
-        return Collections.unmodifiableSet(products);
+    @OneToMany(mappedBy = "bidder", cascade = CascadeType.REMOVE)
+    @Setter(AccessLevel.NONE)
+    private Set<Bid> bids = new HashSet<>();
+
+    public Set<Auction> getAuctions() {
+        return Collections.unmodifiableSet(auctions);
     }
 
-    public void addProduct(Auction product) {
-        if (product == null)
-            throw new NullPointerException("Can't add null Product");
-        if (product.getSeller() != null)
-            throw new IllegalStateException("Product is already assigned to a User");
+    public void addAuction(Auction auction) {
+        if (auction == null)
+            throw new NullPointerException("Can't add null Auction");
+        if (auction.getSeller() != null)
+            throw new IllegalStateException("Auction is already assigned to a User");
 
-        products.add(product);
-        product.setSeller(this);
+        auctions.add(auction);
+        auction.setSeller(this);
     }
 
-    public void removeProduct(Auction product) {
-        products.remove(product);
-        product.setSeller(null);
+    public void removeAuction(Auction auction) {
+        auctions.remove(auction);
+        auction.setSeller(null);
+    }
+
+    public Set<Bid> getBids() {
+        return Collections.unmodifiableSet(bids);
+    }
+
+    public void addBid(Bid bid) {
+        if (bid == null)
+            throw new NullPointerException("Can't add null Bid");
+        if (bid.getAuction() != null)
+            throw new IllegalStateException("Bid is already assigned to a User");
+
+        bids.add(bid);
+        bid.setBidder(this);
+    }
+
+    public void removeBid(Bid bid) {
+        bids.remove(bid);
+        bid.setBidder(null);
     }
 }
