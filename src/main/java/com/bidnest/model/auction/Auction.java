@@ -51,11 +51,11 @@ public class Auction {
     @Column(nullable = false)
     private Currency currency;
 
-    @Column(nullable = false)
+    @Column(name = "start_at", nullable = false)
     private Timestamp startAt;
 
-    @Column(nullable = false)
-    private Boolean ended = false;
+    @Column(name = "end_at", nullable = false)
+    private Timestamp endAt;
 
     @OneToMany(mappedBy = "auction", cascade = CascadeType.REMOVE)
     @Setter(AccessLevel.NONE)
