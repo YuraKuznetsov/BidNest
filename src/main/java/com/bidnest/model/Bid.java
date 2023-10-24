@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -40,6 +41,7 @@ public class Bid {
     @Column(precision = 7, scale = 2, nullable = false)
     private BigDecimal price;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private Timestamp placedAt;
 }
