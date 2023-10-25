@@ -74,6 +74,20 @@ class BidCreateDTOTest {
     }
 
     @Test
+    public void whenPriceIsNull_thenShouldGiveConstraintViolations() {
+        BidCreateDTO bidDTO = new BidCreateDTO();
+        bidDTO.setAuctionId(1L);
+        bidDTO.setPrice(null);
+
+        Set<ConstraintViolation<BidCreateDTO>> violations = validator.validate(bidDTO);
+        assertEquals(1, violations.size());
+        assertEquals(
+                "must not be null",
+                violations.iterator().next().getMessage()
+        );
+    }
+
+    @Test
     public void whenEverythingValid_thenShouldNotGiveConstraintViolations() {
         BidCreateDTO bidDTO = new BidCreateDTO();
         bidDTO.setAuctionId(1L);
