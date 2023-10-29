@@ -7,6 +7,7 @@ import com.bidnest.model.Bid;
 import com.bidnest.model.auction.Auction;
 import com.bidnest.model.user.User;
 import com.bidnest.repository.BidRepository;
+import com.bidnest.service.auction.AuctionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
